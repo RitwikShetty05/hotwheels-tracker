@@ -1,4 +1,7 @@
 import os
+import requests
+from bs4 import BeautifulSoup
+
 ntfy_topic = os.environ["NTFY_TOPIC"]
 
 products = [
@@ -9,7 +12,6 @@ products = [
 ]
 
 price_limit = 400
-ntfy_topic = "ritwik-hotwheels-alert"
 
 session = requests.Session()
 session.headers.update({
@@ -51,6 +53,7 @@ for product in products:
         print("Could not read price for " + product["name"] + " | status " + str(response.status_code) + " | page title: " + page_title)
     else:
         print(product["name"] + " is currently at Rs " + str(price))
+
         if price < price_limit:
             alert_message = product["name"] + " dropped to Rs " + str(price) + "! " + product["url"]
             send_phone_alert(alert_message)
