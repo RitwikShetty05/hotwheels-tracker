@@ -47,10 +47,10 @@ for product in products:
     price = get_price(soup)
 
     if price is None:
-        print("Could not read price for " + product["name"])
+        page_title = soup.title.get_text() if soup.title else "no title"
+        print("Could not read price for " + product["name"] + " | status " + str(response.status_code) + " | page title: " + page_title)
     else:
         print(product["name"] + " is currently at Rs " + str(price))
-
         if price < price_limit:
             alert_message = product["name"] + " dropped to Rs " + str(price) + "! " + product["url"]
             send_phone_alert(alert_message)
