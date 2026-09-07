@@ -1,5 +1,5 @@
-import requests
-from bs4 import BeautifulSoup
+import os
+ntfy_topic = os.environ["NTFY_TOPIC"]
 
 products = [
     {"name": "Charger", "url": "https://www.amazon.in/dp/B0GX5DG4N6/"},
